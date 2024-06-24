@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xrp.projectmanagementbackend.mapper.ProjectMapper">
+
+    <resultMap id="BaseResultMap" type="cn.xrp.projectmanagementbackend.model.Project">
+            <id property="projectID" column="ProjectID" jdbcType="INTEGER"/>
+            <result property="projectName" column="ProjectName" jdbcType="VARCHAR"/>
+            <result property="projectLevel" column="ProjectLevel" jdbcType="VARCHAR"/>
+            <result property="managerID" column="ManagerID" jdbcType="INTEGER"/>
+            <result property="startDate" column="StartDate" jdbcType="DATE"/>
+            <result property="budget" column="Budget" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ProjectID,ProjectName,ProjectLevel,
+        ManagerID,StartDate,Budget
+    </sql>
+</mapper>

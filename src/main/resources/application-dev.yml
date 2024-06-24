@@ -1,0 +1,22 @@
+spring:
+ session:
+  timeout: 86400
+ application:
+  name: projectManagement
+ datasource:
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  username: root
+  password: Xrp220903
+  url: jdbc:mysql://localhost:3306/project_management?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
+server:
+ port: 8080
+ servlet:
+  context-path: /api
+mybatis-plus:
+ configuration:
+  map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+     logic-delete-field: isDelete # 全局逻辑删除字段名
+     logic-delete-value: 1 # 逻辑已删除值
+     logic-not-delete-value: 0 # 逻辑未删除值
