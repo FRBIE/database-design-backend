@@ -1,6 +1,7 @@
 package cn.xrp.projectmanagementbackend.service;
 
 import cn.xrp.projectmanagementbackend.model.Project;
+import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -12,5 +13,9 @@ import java.util.List;
 */
 public interface ProjectService extends IService<Project> {
 
-    public List<Project> getProjectList();
+    public List<ProjectDTO> getProjectList();
+
+    Integer addProject(ProjectDTO projectDTO, String managerName);
+
+    Integer updateProject(ProjectDTO projectDTO);
 }

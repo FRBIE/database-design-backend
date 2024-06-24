@@ -1,7 +1,10 @@
 package cn.xrp.projectmanagementbackend.mapper;
 
 import cn.xrp.projectmanagementbackend.model.Project;
+import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,9 +16,17 @@ import java.util.List;
 * @Entity cn.xrp.usercenterbackend.model.Project
 */
 public interface ProjectMapper extends BaseMapper<Project> {
-    @Select("select  * from project_management.project;")
-    public List<Project> getProjectList();
-
+    @Select("SELECT project.*, manager.ManagerName FROM project_management.project project JOIN project_management.projectmanager manager ON project.ManagerID = manager.ManagerID")
+    @Results({
+            @Result(property = "projectID", column = "projectID"),
+            @Result(property = "projectName", column = "projectName"),
+            @Result(property = "projectLevel", column = "projectLevel"),
+            @Result(property = "managerID", column = "managerID"),
+            @Result(property = "startDate", column = "startDate"),
+            @Result(property = "budget", column = "budget"),
+            @Result(property = "managerName", column = "ManagerName")
+    })//Result底层是调用构造器
+    public List<ProjectDTO> getProjectList();
 }
 
 
