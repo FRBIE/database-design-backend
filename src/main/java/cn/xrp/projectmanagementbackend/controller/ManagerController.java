@@ -24,11 +24,11 @@ public class ManagerController {
     private ProjectmanagerService managerService;
 
     @GetMapping("/list")
-    public BaseResponse<List<Projectmanager>> getProjectList(){
+    public BaseResponse<List<Projectmanager>> getManagerList(){
         return ResultUtil.success(managerService.list());
     }
     @PostMapping("/delete")
-    public BaseResponse<Boolean> deleteUser(@RequestBody JsonNode index){
+    public BaseResponse<Boolean> deleteManager(@RequestBody JsonNode index){
         long id = index.get("id").longValue();
         if(id < 0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);

@@ -6,24 +6,22 @@ import cn.xrp.projectmanagementbackend.common.BaseResponse;
 import cn.xrp.projectmanagementbackend.common.ErrorCode;
 import cn.xrp.projectmanagementbackend.common.ResultUtil;
 import cn.xrp.projectmanagementbackend.exception.BusinessException;
-import cn.xrp.projectmanagementbackend.mapper.ProjectMapper;
+
 import cn.xrp.projectmanagementbackend.model.Project;
 
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
 import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
 import cn.xrp.projectmanagementbackend.service.ProjectService;
 import cn.xrp.projectmanagementbackend.service.ProjectmanagerService;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 
 import java.util.List;
-
 
 
 
@@ -67,7 +65,7 @@ public class ProjectController {
         return ResultUtil.success(res);
     }
     @PostMapping("/search")
-    public BaseResponse<List<Project>> searchProject(@RequestBody ProjectDTO projectDTO){
+    public BaseResponse<List<ProjectDTO>> searchProject(@RequestBody ProjectDTO projectDTO){
         LambdaQueryWrapper<Project> wrapper = new LambdaQueryWrapper<>();
         if(projectDTO.getProjectID() != null && !projectDTO.getProjectID().equals("")){
             wrapper.eq(Project::getProjectID,projectDTO.getProjectID());
@@ -92,7 +90,6 @@ public class ProjectController {
             }else{//1.2 存在该负责人
                 wrapper.eq(Project::getManagerID,manager.getManagerID());
             }
-
         }
         if(projectDTO.getProjectLevel() != null&&!projectDTO.getProjectLevel().equals("")){
             wrapper.eq(Project::getProjectLevel,projectDTO.getProjectLevel());
@@ -101,7 +98,7 @@ public class ProjectController {
             wrapper.eq(Project::getBudget,projectDTO.getBudget());
         }
 
-        List<Project> projectList = projectService.list(wrapper);
-        return ResultUtil.success(projectList);
+        List<ProjectDTO> projectDTOList = projectService.search(wrapper);
+        return ResultUtil.success(projectDTOList);
     }
 }

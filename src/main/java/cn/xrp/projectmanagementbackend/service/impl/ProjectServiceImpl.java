@@ -18,6 +18,7 @@ import cn.xrp.projectmanagementbackend.mapper.ProjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project>
            throw new BusinessException(ErrorCode.PARAMS_ERROR,"该负责人不存在");
         }
         managerID = projectmanager.getManagerID();
-        System.out.println("负责人ID为: " + managerID);
+       // System.out.println("负责人ID为: " + managerID);
 
         project = new Project();
         project.setProjectID(projectDTO.getProjectID());
@@ -86,10 +87,23 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project>
         project.setProjectID(projectDTO.getProjectID());
         project.setProjectName(projectDTO.getProjectName());
         project.setProjectLevel(projectDTO.getProjectLevel());
-        project.setManagerID(projectDTO.getManagerID());
+        project.setManagerID(manager.getManagerID()); //前端传的是负责人姓名，这里负责人ID从数据库中取得
         project.setStartDate(projectDTO.getStartDate());
         project.setBudget(projectDTO.getBudget());
         return projectMapper.updateById(project);
+    }
+
+    @Override
+    public List<ProjectDTO> search(LambdaQueryWrapper<Project> wrapper) {
+        List<Project> list = list(wrapper);
+        List<ProjectDTO> projectDTOList = new ArrayList<>();
+        for (Project project : list) {
+            Integer managerID = project.getManagerID();
+            Projectmanager manager = projectmanagerService.getById(managerID);
+            String managerName = manager.getManagerName();
+            projectDTOList.add(new ProjectDTO(project,managerName));
+        }
+        return projectDTOList;
     }
 }
 

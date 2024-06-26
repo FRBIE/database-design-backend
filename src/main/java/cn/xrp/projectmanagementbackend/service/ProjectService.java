@@ -2,6 +2,7 @@ package cn.xrp.projectmanagementbackend.service;
 
 import cn.xrp.projectmanagementbackend.model.Project;
 import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ProjectService extends IService<Project> {
     Integer addProject(ProjectDTO projectDTO, String managerName);
 
     Integer updateProject(ProjectDTO projectDTO);
+
+    List<ProjectDTO> search(LambdaQueryWrapper<Project> wrapper);
 }
