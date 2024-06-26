@@ -10,7 +10,7 @@ import cn.xrp.projectmanagementbackend.exception.BusinessException;
 import cn.xrp.projectmanagementbackend.model.Project;
 
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
-import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
+import cn.xrp.projectmanagementbackend.model.ProjectDTO;
 import cn.xrp.projectmanagementbackend.service.ProjectService;
 import cn.xrp.projectmanagementbackend.service.ProjectmanagerService;
 
@@ -67,7 +67,7 @@ public class ProjectController {
     @PostMapping("/search")
     public BaseResponse<List<ProjectDTO>> searchProject(@RequestBody ProjectDTO projectDTO){
         LambdaQueryWrapper<Project> wrapper = new LambdaQueryWrapper<>();
-        if(projectDTO.getProjectID() != null && !projectDTO.getProjectID().equals("")){
+        if(projectDTO.getProjectID() != null && projectDTO.getProjectID() >0){
             wrapper.eq(Project::getProjectID,projectDTO.getProjectID());
         }
         if(projectDTO.getProjectName() != null && !projectDTO.getProjectName().equals("")){

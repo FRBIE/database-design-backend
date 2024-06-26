@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xrp.projectmanagementbackend.mapper.ManagerUnitMapper">
+
+    <resultMap id="BaseResultMap" type="cn.xrp.projectmanagementbackend.model.ManagerUnit">
+            <id property="manager_id" column="manager_id" jdbcType="INTEGER"/>
+            <id property="unit_id" column="unit_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        manager_id,unit_id
+    </sql>
+</mapper>

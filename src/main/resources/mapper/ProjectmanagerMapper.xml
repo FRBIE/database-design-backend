@@ -8,9 +8,10 @@
             <id property="managerID" column="ManagerID" jdbcType="INTEGER"/>
             <result property="managerName" column="ManagerName" jdbcType="VARCHAR"/>
             <result property="age" column="Age" jdbcType="INTEGER"/>
+
     </resultMap>
 
     <sql id="Base_Column_List">
-        ManagerID,ManagerName,Age
+        ManagerID,ManagerName,Age,
     </sql>
 </mapper>

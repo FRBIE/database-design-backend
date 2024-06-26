@@ -1,16 +1,11 @@
 package cn.xrp.projectmanagementbackend.service.impl;
 
 import cn.xrp.projectmanagementbackend.common.ErrorCode;
-import cn.xrp.projectmanagementbackend.common.ResultUtil;
 import cn.xrp.projectmanagementbackend.exception.BusinessException;
 import cn.xrp.projectmanagementbackend.mapper.ProjectmanagerMapper;
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
-import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
-import cn.xrp.projectmanagementbackend.service.ProjectmanagerService;
+import cn.xrp.projectmanagementbackend.model.ProjectDTO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.xrp.projectmanagementbackend.model.Project;
 import cn.xrp.projectmanagementbackend.service.ProjectService;
@@ -20,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * @author x

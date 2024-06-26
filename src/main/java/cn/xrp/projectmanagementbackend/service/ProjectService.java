@@ -1,7 +1,8 @@
 package cn.xrp.projectmanagementbackend.service;
 
 import cn.xrp.projectmanagementbackend.model.Project;
-import cn.xrp.projectmanagementbackend.model.response.ProjectDTO;
+import cn.xrp.projectmanagementbackend.model.Projectmanager;
+import cn.xrp.projectmanagementbackend.model.ProjectDTO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -21,4 +22,13 @@ public interface ProjectService extends IService<Project> {
     Integer updateProject(ProjectDTO projectDTO);
 
     List<ProjectDTO> search(LambdaQueryWrapper<Project> wrapper);
+
+    /**
+    * @author x
+    * @description 针对表【projectmanager(负责人信息表)】的数据库操作Service
+    * @createDate 2024-06-26 16:17:52
+    */
+    interface ProjectmanagerService extends IService<Projectmanager> {
+
+    }
 }

@@ -1,4 +1,4 @@
-package cn.xrp.projectmanagementbackend.model.response;
+package cn.xrp.projectmanagementbackend.model;
 
 import cn.xrp.projectmanagementbackend.model.Project;
 import lombok.Data;
