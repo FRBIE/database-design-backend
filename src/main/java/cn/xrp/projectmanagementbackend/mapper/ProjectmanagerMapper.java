@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 * @Entity cn.xrp.projectmanagementbackend.model.Projectmanager
 */
 public interface ProjectmanagerMapper extends BaseMapper<Projectmanager> {
-    Integer getTotalBudgetByManagerID(@Param("ManagerID") Integer managerID);
+    BigDecimal getTotalBudgetByManagerID(@Param("ManagerID") Integer managerID);
 }
 
 
