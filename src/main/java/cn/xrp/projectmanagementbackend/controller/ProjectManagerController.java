@@ -6,8 +6,10 @@ import cn.xrp.projectmanagementbackend.common.ErrorCode;
 import cn.xrp.projectmanagementbackend.common.ResultUtil;
 import cn.xrp.projectmanagementbackend.exception.BusinessException;
 import cn.xrp.projectmanagementbackend.model.ProjectManagerDTO;
+import cn.xrp.projectmanagementbackend.model.Projectmanager;
 import cn.xrp.projectmanagementbackend.model.Unit;
 import cn.xrp.projectmanagementbackend.model.request.ManagerRequest;
+import cn.xrp.projectmanagementbackend.model.request.ManagerSearchRequest;
 import cn.xrp.projectmanagementbackend.service.ManagerUnitService;
 import cn.xrp.projectmanagementbackend.service.ProjectmanagerService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -50,21 +52,10 @@ public class ProjectManagerController {
     public BaseResponse<Boolean> editManager(@RequestBody ManagerRequest managerRequest){
         return projectmanagerService.editManager(managerRequest);
     }
-//    @PostMapping("/search")
-//    public BaseResponse<List<Unit>> searchProject(@RequestBody Unit unit){
-//        //考虑中，到底要支持哪些查询
-//        LambdaQueryWrapper<Unit> wrapper = new LambdaQueryWrapper<>();
-//        if(unit.getUnitID() != null && unit.getUnitID()> 0){
-//            wrapper.eq(Unit::getUnitID,unit.getUnitID());
-//        }
-//        if(unit.getUnitName() != null && !unit.getUnitName().equals("")){
-//            wrapper.like(Unit::getUnitName,unit.getUnitName());
-//        }
-//        if(unit.getAddress() != null && !unit.getAddress().equals("")){
-//            wrapper.like(Unit::getAddress,unit.getAddress());
-//        }
-//        List<Unit> unitList = unitService.list(wrapper);
-//        return ResultUtil.success(unitList);
-//    }
+    @PostMapping("/search")
+    public BaseResponse<List<ProjectManagerDTO>> searchManager(@RequestBody ManagerSearchRequest managerSearchRequest ){
+        List<ProjectManagerDTO> projectmanagers = projectmanagerService.searchManager(managerSearchRequest);
+        return ResultUtil.success(projectmanagers);
+    }
 
 }

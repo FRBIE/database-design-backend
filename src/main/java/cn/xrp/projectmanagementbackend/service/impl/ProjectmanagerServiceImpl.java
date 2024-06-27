@@ -8,8 +8,11 @@ import cn.xrp.projectmanagementbackend.mapper.ManagerUnitMapper;
 import cn.xrp.projectmanagementbackend.mapper.UnitMapper;
 import cn.xrp.projectmanagementbackend.model.ManagerUnit;
 import cn.xrp.projectmanagementbackend.model.ProjectManagerDTO;
+import cn.xrp.projectmanagementbackend.model.Unit;
 import cn.xrp.projectmanagementbackend.model.request.ManagerRequest;
+import cn.xrp.projectmanagementbackend.model.request.ManagerSearchRequest;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
 import cn.xrp.projectmanagementbackend.service.ProjectmanagerService;
@@ -128,6 +131,73 @@ public class ProjectmanagerServiceImpl extends ServiceImpl<ProjectmanagerMapper,
 
         return ResultUtil.success(true);
 
+    }
+
+    @Override
+    public List<ProjectManagerDTO> searchManager(ManagerSearchRequest managerSearchRequest) {
+        String unitName = managerSearchRequest.getUnitName();
+        String managerName = managerSearchRequest.getManagerName();
+        Integer managerID = managerSearchRequest.getManagerID();
+        Integer age = managerSearchRequest.getAge();
+
+        //1.先查manager
+        LambdaQueryWrapper<Projectmanager> wrapper = new LambdaQueryWrapper<>();
+        if(null != managerName && !managerName.equals("")){
+            wrapper.like(Projectmanager::getManagerName, managerName);
+        }
+        if(null != managerID && !managerID.equals("")){
+            wrapper.eq(Projectmanager::getManagerID, managerID);
+        }
+        if( null != age &&!age.equals("")){
+            wrapper.eq(Projectmanager::getAge, age);
+        }
+        List<Projectmanager> tmpList = projectmanagerMapper.selectList(wrapper);
+        //2.再查unitName对应的unitID
+        if(null != unitName &&!unitName.equals("")){
+            LambdaQueryWrapper<Unit> wrapper1 = new LambdaQueryWrapper<Unit>();
+            wrapper1.like(Unit::getUnitName,unitName);
+            List<Unit> unitList = unitMapper.selectList(wrapper1);
+            List<Object> unitIDList = unitList.stream().map(unit ->
+                new Integer(unit.getUnitID())
+            ).collect(Collectors.toList());
+
+            //3.查出该unitList所拥有的负责人IDList
+            if(unitIDList.size()>0){ //负责人存在
+                LambdaQueryWrapper<ManagerUnit> wrapper2 = new LambdaQueryWrapper<>();
+                wrapper2.in(ManagerUnit::getUnit_id,unitIDList);
+                List<ManagerUnit> managerUnitList = managerUnitMapper.selectList(wrapper2);
+                //返回符合条件的ManagerUnit的manager_id
+                List<Integer> managerIDList = managerUnitList.stream()
+                        .map(ManagerUnit::getManager_id)
+                        .collect(Collectors.toList());
+                //根据此负责人IDList，判断tmpList中是否IN
+                tmpList = tmpList.stream()
+                        .filter(pm -> managerIDList.contains(pm.getManagerID()))
+                        .collect(Collectors.toList());
+            }else{
+                //负责人不存在
+                return null;
+            }
+
+
+        }
+        //返回结果处理
+        List<ProjectManagerDTO> result = tmpList.stream().map(projectmanager -> {
+            // 查到该负责人所属单位的ID集合
+            List<ManagerUnit> managerUnits = managerUnitMapper.selectList(new LambdaQueryWrapper<ManagerUnit>().eq(ManagerUnit::getManager_id, projectmanager.getManagerID()));
+            List<Integer> unitIDList = managerUnits.stream().map(managerUnit -> managerUnit.getUnit_id()).collect(Collectors.toList());
+
+            // 将单位ID集合转为单位名称集合
+            List<HashMap<Integer, String>> unitNameList = unitIDList.stream().map(id -> {
+                String tmpName = unitMapper.selectById(id).getUnitName();
+                HashMap<Integer, String> map = new HashMap<>();
+                map.put(id, tmpName);
+                return map;
+            }).collect(Collectors.toList());
+
+            return new ProjectManagerDTO(projectmanager, unitNameList);
+        }).collect(Collectors.toList());
+        return result;
     }
 }
 

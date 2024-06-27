@@ -4,6 +4,7 @@ import cn.xrp.projectmanagementbackend.common.BaseResponse;
 import cn.xrp.projectmanagementbackend.model.ProjectManagerDTO;
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
 import cn.xrp.projectmanagementbackend.model.request.ManagerRequest;
+import cn.xrp.projectmanagementbackend.model.request.ManagerSearchRequest;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface ProjectmanagerService extends IService<Projectmanager> {
     BaseResponse<Boolean> deleteManager(long managerId);
 
     BaseResponse<Boolean> editManager(ManagerRequest managerRequest);
+
+    List<ProjectManagerDTO> searchManager(ManagerSearchRequest managerSearchRequest);
 }
