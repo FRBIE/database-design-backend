@@ -36,7 +36,7 @@ public class UnitController {
     }
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUnit(@RequestBody JsonNode index){
-        long unitId = index.get("id").longValue();
+        Integer unitId = index.get("id").intValue();
         if(unitId < 0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

@@ -16,7 +16,7 @@ public interface UnitService extends IService<Unit> {
 
     boolean addUnit(Unit unit);
 
-    boolean deleteUnit(long id);
+    boolean deleteUnit(Integer id);
 
     /**
     * @author x

@@ -13,4 +13,7 @@
     <sql id="Base_Column_List">
         UnitID,UnitName,Address
     </sql>
+    <select id="DeleteUnit" statementType="CALLABLE" resultType="String">
+        {CALL DeleteUnit(#{t_UnitID, mode=IN, jdbcType=INTEGER})}
+    </select>
 </mapper>

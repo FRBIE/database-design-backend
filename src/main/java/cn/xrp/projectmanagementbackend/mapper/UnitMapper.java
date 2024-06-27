@@ -2,6 +2,9 @@ package cn.xrp.projectmanagementbackend.mapper;
 
 import cn.xrp.projectmanagementbackend.model.Unit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.math.BigDecimal;
 
 /**
 * @author x
@@ -10,7 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity cn.xrp.projectmanagementbackend.model.Unit
 */
 public interface UnitMapper extends BaseMapper<Unit> {
-
+    void DeleteUnit(@Param("t_UnitID") Integer unitID);
 }
 
 

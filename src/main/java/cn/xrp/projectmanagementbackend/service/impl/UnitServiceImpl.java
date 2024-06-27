@@ -43,14 +43,14 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit>
      *  删除单位，要先删除负责人-单位关系表中的所有对应数据，再删除单位表的数据
      */
     @Override
-    public boolean deleteUnit(long unitId) {
+    public boolean deleteUnit(Integer unitId) {
         try {
-            //删除关系表中的数据
-            LambdaQueryWrapper<ManagerUnit> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(ManagerUnit::getUnit_id,unitId);
-            managerUnitMapper.delete(wrapper);
-            //删除单位表数据
-            unitMapper.deleteById(unitId);
+//            //删除关系表中的数据
+//            LambdaQueryWrapper<ManagerUnit> wrapper = new LambdaQueryWrapper<>();
+//            wrapper.eq(ManagerUnit::getUnit_id,unitId);
+//            managerUnitMapper.delete(wrapper);
+//            //删除单位表数据
+//            unitMapper.deleteById(unitId);
 //            List<ManagerUnit> managerUnits = managerUnitMapper.selectList(wrapper);
 //
 //
@@ -58,6 +58,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit>
 //                    managerUnits) {
 //                managerUnitMapper.deleteById(managerUnit.getUnit_id());
 //            }
+            unitMapper.DeleteUnit(unitId);
         }catch (Exception e){
             System.out.println(e.getMessage());
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"删除失败,请重试");
