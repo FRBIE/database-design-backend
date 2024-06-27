@@ -16,7 +16,7 @@ import java.util.List;
 * @Entity cn.xrp.usercenterbackend.model.Project
 */
 public interface ProjectMapper extends BaseMapper<Project> {
-    @Select("SELECT project.*, manager.ManagerName FROM project_management.project project JOIN project_management.projectmanager manager ON project.ManagerID = manager.ManagerID")
+    @Select("SELECT project.*, projectmanager.ManagerName FROM project  JOIN projectmanager  ON project.ManagerID = projectmanager.ManagerID")
     @Results({
             @Result(property = "projectID", column = "projectID"),
             @Result(property = "projectName", column = "projectName"),

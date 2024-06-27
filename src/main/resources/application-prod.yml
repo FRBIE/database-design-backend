@@ -5,11 +5,11 @@ spring:
   name: projectManagement
  datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
-  username: xrp_user_center
-  password: LsmBbmnLBaJ8PiSA
-  url: jdbc:mysql://localhost:3306/project_management?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
+  username: xrp_mysql_design
+  password: t2a4EDK8FRNFL45n
+  url: jdbc:mysql://localhost:3306/xrp_mysql_design?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
 server:
- port: 5359
+ port: 8100
  servlet:
   context-path: /api
 mybatis-plus:

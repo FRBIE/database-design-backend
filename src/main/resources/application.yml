@@ -9,7 +9,7 @@ spring:
   password: Xrp220903
   url: jdbc:mysql://localhost:3306/project_management?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
  profiles:
-  active: dev
+  active: prod
 server:
  port: 8080
  servlet:
