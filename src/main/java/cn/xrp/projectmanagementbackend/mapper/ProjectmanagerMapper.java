@@ -4,6 +4,7 @@ import cn.xrp.projectmanagementbackend.model.ProjectDTO;
 import cn.xrp.projectmanagementbackend.model.ProjectManagerDTO;
 import cn.xrp.projectmanagementbackend.model.Projectmanager;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -17,7 +18,7 @@ import java.util.List;
 * @Entity cn.xrp.projectmanagementbackend.model.Projectmanager
 */
 public interface ProjectmanagerMapper extends BaseMapper<Projectmanager> {
-
+    Integer getTotalBudgetByManagerID(@Param("ManagerID") Integer managerID);
 }
 
 

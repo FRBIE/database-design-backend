@@ -14,4 +14,7 @@
     <sql id="Base_Column_List">
         ManagerID,ManagerName,Age,
     </sql>
+    <select id="getTotalBudgetByManagerID" statementType="CALLABLE" resultType="Integer">
+        {CALL GetTotalBudgetByManagerID(#{ManagerID, mode=IN, jdbcType=INTEGER})}
+    </select>
 </mapper>

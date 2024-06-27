@@ -43,7 +43,6 @@ public class ProjectmanagerServiceImpl extends ServiceImpl<ProjectmanagerMapper,
     @Override
     public List<ProjectManagerDTO> getManagerList() {
         List<Projectmanager> projectmanagerList = list();
-
         List<ProjectManagerDTO> result = projectmanagerList.stream().map(projectmanager -> {
             // 查到该负责人所属单位的ID集合
             List<ManagerUnit> managerUnits = managerUnitMapper.selectList(new LambdaQueryWrapper<ManagerUnit>().eq(ManagerUnit::getManager_id, projectmanager.getManagerID()));
@@ -58,7 +57,7 @@ public class ProjectmanagerServiceImpl extends ServiceImpl<ProjectmanagerMapper,
                 return map;
             }).collect(Collectors.toList());
 
-            return new ProjectManagerDTO(projectmanager, unitNameList);
+            return new ProjectManagerDTO(projectmanager, unitNameList,projectmanagerMapper.getTotalBudgetByManagerID(projectmanager.getManagerID()));
         }).collect(Collectors.toList());
         return result;
     }
